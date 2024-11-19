@@ -1,20 +1,16 @@
-import { Body, Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CallbackService } from './callback.service';
 import { CallbackRequest } from './callbackRequest';
+import { ApiResponse } from '@nestjs/swagger';
 
-@Controller('notify')
-export class NotifyController {
+@Controller('sendForm')
+export class CallbackController {
   constructor(private readonly callbackService: CallbackService) {}
-
-  @Get('sendForm')
+  
+  @ApiResponse({status: 200})
+  @Post('send')
   async sendForm(@Body() dto: CallbackRequest): Promise<string> {
-
-    const chatId = 123456789; // ваш chat ID
-    const message = 'Привіт від Nest.js!';
-
-
-
-    await this.callbackService.sendMessage(chatId, message);
+    await this.callbackService.sendMessage(dto);
     return 'Повідомлення надіслано!';
   }
 }

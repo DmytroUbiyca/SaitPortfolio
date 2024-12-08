@@ -26,9 +26,9 @@ export class AuthService {
 
             const candinate = await this.userService.getUserByEmail(userDto.email);
 
-            if(candinate === null)
+            if(candinate)
             {
-                throw new HttpException('Користувач з таким email уже існує', HttpStatus.BAD_REQUEST)
+                throw new HttpException('Користувач даун з таким email уже існує', HttpStatus.BAD_REQUEST)
             }
 
             const hashPassword = await bcrypt.hash(userDto.password, 5 )
@@ -57,6 +57,7 @@ export class AuthService {
             }
 
             const passwordEquals = await bcrypt.compare(userDto.password, user.password);
+
             if (!passwordEquals) {
                 throw new UnauthorizedException({ message: 'Некоректний email або пароль' });
             }

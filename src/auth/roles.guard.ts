@@ -40,7 +40,7 @@ export class RolesGuard implements CanActivate {
 
     } catch (e) {
       console.error(e);
-      throw new HttpException({ message: "Пашол нахуй!" },HttpStatus.FORBIDDEN);
+      throw new HttpException({ message: "Немає доступу" },HttpStatus.FORBIDDEN);
     }
   }
 }

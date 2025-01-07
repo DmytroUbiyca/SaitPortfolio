@@ -6,9 +6,12 @@ import { UsersController } from "./users/users/users.controller";
 import { UsersModule } from "./users/users/users.module";
 import { RolesModule } from './roles/roles.module';
 import { Role } from "./roles/roles.model";
+import { Post } from "./posts/posts.model";
 import { UserRoles } from "./roles/user-roles.model";
 import { AuthModule } from './auth/auth.module';
 import { CallbackModule } from "./callbackForm/callback.module";
+import { PostsModule } from './posts/posts.module';
+import { FilesModule } from './files/files.module';
 
 const connectionEnvSettings = {
   envFilePath: '.env',
@@ -22,7 +25,7 @@ let connectionDbSettings : SequelizeModule  = {
   username: process.env.POSTGRES_USER,
   password: String(process.env.POSTGRES_PASSWORD),
   database: process.env.POSTGRES_DB,
-  models: [User,Role,UserRoles],
+  models: [User,Role,UserRoles,Post],
   autoLoadModels: true,
   synchronize: true
 }; 
@@ -35,7 +38,9 @@ let connectionDbSettings : SequelizeModule  = {
       SequelizeModule.forRoot(connectionDbSettings), 
       RolesModule, 
       AuthModule,
-      CallbackModule
+      CallbackModule,
+      PostsModule,
+      FilesModule
       ],
 })
 
